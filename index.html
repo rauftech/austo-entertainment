@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webflow Custom Code - Dev Preview</title>
+  
+  <!-- CSS Links for Development Testing -->
+  <link rel="stylesheet" href="/src/styles/global.css">
+</head>
+<body>
+  <h1>Development Preview</h1>
+  <p>This is just for testing. Your code will run in Webflow.</p>
+  <p>Current path: <code id="current-path"></code></p>
+  
+  <script>
+    document.getElementById('current-path').textContent = window.location.pathname;
+  </script>
+  
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
