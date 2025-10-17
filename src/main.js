@@ -2,6 +2,9 @@
  * Webflow Custom Code - Main Entry Point
  * This file loads global and page-specific JavaScript
  */
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 
 // Parse URL paths for conditional loading
 let paths = window.location.pathname.split('/');
@@ -40,6 +43,10 @@ ready(async () => {
     await import('./js/global.js');
 
     // Load page-specific JavaScript conditionally
+    if (isCurrentPage([''])) {
+      await import('./js/home.js');
+    }
+
     if (isCurrentPage(['about'])) {
       await import('./js/about.js');
     }

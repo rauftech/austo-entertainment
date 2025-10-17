@@ -46,9 +46,11 @@ if (isCurrentPage(['about'])) {
 function isCurrentPage(pageList) {
   const path = paths[paths.length - 1];
   // Matches: /about, /about/, collection detail pages
-  return pageList.includes(path) || 
-         pageList.includes('detail_' + itemPath) || 
-         pageList.includes(itemPath + '/item');
+  return (
+    pageList.includes(path) ||
+    pageList.includes('detail_' + itemPath) ||
+    pageList.includes(itemPath + '/item')
+  );
 }
 ```
 
@@ -59,11 +61,13 @@ function isCurrentPage(pageList) {
 **Header Code:**
 
 ```html
-<link rel="stylesheet" href="http://localhost:5173/src/styles/global.css">
+<link rel="stylesheet" href="http://localhost:5173/src/styles/global.css" />
 <script>
   const path = window.location.pathname.split('/').pop();
   if (path === 'about' || path === '') {
-    document.write('<link rel="stylesheet" href="http://localhost:5173/src/styles/about-home.css">');
+    document.write(
+      '<link rel="stylesheet" href="http://localhost:5173/src/styles/about-home.css">'
+    );
   }
 </script>
 ```
@@ -79,12 +83,14 @@ function isCurrentPage(pageList) {
 **Header Code:**
 
 ```html
-<link rel="stylesheet" href="https://USERNAME.github.io/REPO/global.css">
+<link rel="stylesheet" href="https://USERNAME.github.io/REPO/global.css" />
 <script>
   const path = window.location.pathname.split('/').pop();
   const base = 'https://USERNAME.github.io/REPO';
   if (path === 'about' || path === '') {
-    document.write('<link rel="stylesheet" href="' + base + '/about-home.css">');
+    document.write(
+      '<link rel="stylesheet" href="' + base + '/about-home.css">'
+    );
   }
 </script>
 ```
@@ -120,11 +126,11 @@ Entry point with routing logic:
 
 ## Commands
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start dev server (localhost:5173) |
-| `npm run build` | Build for production → `dist/` |
-| `npm run preview` | Preview production build |
+| Command           | Description                       |
+| ----------------- | --------------------------------- |
+| `npm run dev`     | Start dev server (localhost:5173) |
+| `npm run build`   | Build for production → `dist/`    |
+| `npm run preview` | Preview production build          |
 
 ## Deploy to GitHub Pages
 

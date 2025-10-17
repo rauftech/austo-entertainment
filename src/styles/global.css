@@ -1,25 +1,5 @@
-/**
- * Global CSS - Applied to all pages
- * Add your site-wide styles here
- */
-
-/* Example global styles */
-/* 
-:root {
-  --primary-color: #000;
-  --secondary-color: #fff;
-}
-
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-*/
-
-.debug {
-  border: 1px solid red;
-}
-
-.temp {
-  color: red;
+body:has([data-cursor]:hover) .cursor {
+  opacity: 1;
+  width: 7em;
+  height: 2.4em;
 }

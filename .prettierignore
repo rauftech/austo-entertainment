@@ -1,0 +1,22 @@
+# Build output
+dist
+node_modules
+
+# Dependency lock & metadata
+package-lock.json
+
+# Git & config
+.git
+.gitignore
+.vscode
+
+# Vite cache
+.cache
+vite.config.js.map
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+
+# Misc
+*.log
