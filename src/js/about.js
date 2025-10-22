@@ -2,34 +2,46 @@
  * About page specific JavaScript
  */
 
-console.log('→ About page JS initialized');
+// Note: The Javascript is optional. Read the documentation below how to use the CSS Only version.
 
-// Example: About page animations
-/*
-const aboutSections = document.querySelectorAll('.about-section');
+function initCSSMarquee() {
+  const pixelsPerSecond = 75; // Set the marquee speed (pixels per second)
+  const marquees = document.querySelectorAll('[data-css-marquee]');
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('animate-in');
-    }
+  // Duplicate each [data-css-marquee-list] element inside its container
+  marquees.forEach((marquee) => {
+    marquee.querySelectorAll('[data-css-marquee-list]').forEach((list) => {
+      const duplicate = list.cloneNode(true);
+      marquee.appendChild(duplicate);
+    });
   });
-}, { threshold: 0.1 });
 
-aboutSections.forEach(section => observer.observe(section));
-*/
+  // Create an IntersectionObserver to check if the marquee container is in view
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        entry.target
+          .querySelectorAll('[data-css-marquee-list]')
+          .forEach(
+            (list) =>
+              (list.style.animationPlayState = entry.isIntersecting
+                ? 'running'
+                : 'paused'),
+          );
+      });
+    },
+    { threshold: 0 },
+  );
 
-// Example: Team member modal
-/*
-document.querySelectorAll('.team-member').forEach(member => {
-  member.addEventListener('click', () => {
-    const modal = document.querySelector('.team-modal');
-    const name = member.dataset.name;
-    const bio = member.dataset.bio;
-    
-    modal.querySelector('.modal-name').textContent = name;
-    modal.querySelector('.modal-bio').textContent = bio;
-    modal.classList.add('active');
+  // Calculate the width and set the animation duration accordingly
+  marquees.forEach((marquee) => {
+    marquee.querySelectorAll('[data-css-marquee-list]').forEach((list) => {
+      list.style.animationDuration = list.offsetWidth / pixelsPerSecond + 's';
+      list.style.animationPlayState = 'paused';
+    });
+    observer.observe(marquee);
   });
-});
-*/
+}
+
+// Initialize CSS Marquee
+initCSSMarquee();

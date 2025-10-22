@@ -4,7 +4,9 @@
  */
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-gsap.registerPlugin(ScrollTrigger);
+import { Draggable } from 'gsap/Draggable';
+import { InertiaPlugin } from 'gsap/InertiaPlugin';
+gsap.registerPlugin(ScrollTrigger, Draggable, InertiaPlugin);
 
 // Parse URL paths for conditional loading
 let paths = window.location.pathname.split('/');
@@ -47,19 +49,21 @@ ready(async () => {
       await import('./js/home.js');
     }
 
+    if (isCurrentPage(['work'])) {
+      await import('./js/work.js');
+    }
+
     if (isCurrentPage(['about'])) {
       await import('./js/about.js');
     }
 
-    // if (isCurrentPage(['work', 'services'])) {
-    //   await import('./js/work.js');
-    // }
+    if (isCurrentPage(['services'])) {
+      await import('./js/services.js');
+    }
 
-    // if (isCurrentPage(['contact'])) {
-    //   await import('./js/contact.js');
-    // }
-
-    // Add more page conditions here as needed
+    if (isCurrentPage(['services', 'booking'])) {
+      await import('./js/utils.js');
+    }
 
     console.log('✓ Custom code loaded successfully');
   } catch (error) {

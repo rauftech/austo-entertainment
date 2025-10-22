@@ -1,5 +1,14 @@
-body:has([data-cursor]:hover) .cursor {
-  opacity: 1;
-  width: 7em;
-  height: 2.4em;
+/* Footer */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-rotate {
+  animation: spin 6s linear infinite;
+  transform-origin: center center; /* optional but good practice */
 }

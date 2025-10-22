@@ -1,0 +1,6 @@
+/* Featured Work */
+body:has([data-cursor]:hover) .cursor {
+  opacity: 1;
+  width: 8em;
+  height: 2.4em;
+}

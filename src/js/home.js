@@ -2,6 +2,7 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+// Featured Work
 function initStoriesGrid() {
   const grid = document.querySelector('.stories-grid');
   if (!grid) return;
@@ -108,6 +109,7 @@ function initDynamicCustomTextCursor() {
   });
 }
 
+// Services
 function initImageTrail(config = {}) {
   // config + defaults
   const options = {
@@ -284,7 +286,7 @@ function initImageTrail(config = {}) {
 
 initStoriesGrid();
 initDynamicCustomTextCursor();
-const imageTrail = initImageTrail({
+initImageTrail({
   minWidth: 992,
   moveDistance: 15,
   stopDuration: 350,

@@ -1,15 +1,12 @@
-/**
- * About & Home page specific styles
- */
-
-/* Example: About page hero animation */
-/*
-.about-hero {
-  animation: fadeIn 0.6s ease-in-out;
+/* Marquee */
+@keyframes translateX {
+  to {
+    transform: translateX(-100%);
+  }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+[data-css-marquee-list] {
+  animation: translateX 30s linear;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
 }
-*/
