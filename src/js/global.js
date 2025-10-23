@@ -2,6 +2,7 @@
  * Global JavaScript - Runs on all pages
  * Add site-wide functionality here
  */
+import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 

@@ -1,0 +1,179 @@
+/* ------------------------- Scaling System by Osmo [https://osmo.supply/] -------------------------  */
+/* Desktop */
+:root {
+  --size-unit: 16; /* body font-size in design - no px */
+  --size-container-ideal: 1512; /* screen-size in design - no px */
+  --size-container-min: 992px;
+  --size-container-max: 1920px;
+  --size-container: clamp(
+    var(--size-container-min),
+    100vw,
+    var(--size-container-max)
+  );
+  --size-font: calc(
+    var(--size-container) / (var(--size-container-ideal) / var(--size-unit))
+  );
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  font-size: var(--size-font);
+}
+
+.container {
+  max-width: calc(var(--size-container) * 0.89);
+}
+
+.container.is--medium {
+  max-width: calc(var(--size-container) * 0.75);
+}
+
+.container.is--small {
+  max-width: calc(var(--size-container) * 0.4);
+}
+
+/* Tablet */
+@media screen and (max-width: 991px) {
+  :root {
+    --size-container-ideal: 834; /* screen-size in design - no px */
+    --size-container-min: 768px;
+    --size-container-max: 991px;
+  }
+}
+
+/* Mobile Landscape */
+@media screen and (max-width: 767px) {
+  :root {
+    --size-container-ideal: 656; /* screen-size in design - no px */
+    --size-container-min: 480px;
+    --size-container-max: 767px;
+  }
+
+  .container.is--medium {
+    max-width: calc(var(--size-container) * 0.89);
+  }
+
+  .container.is--small {
+    max-width: calc(var(--size-container) * 0.48);
+  }
+}
+
+/* Mobile Portrait */
+@media screen and (max-width: 479px) {
+  :root {
+    --size-container-ideal: 402; /* screen-size in design - no px */
+    --size-container-min: 320px;
+    --size-container-max: 479px;
+  }
+
+  .container.is--small {
+    max-width: calc(var(--size-container) * 0.65);
+  }
+}
+
+/* ------------------------- page: Services - section: Production Setups -------------------------  */
+/* Webflow Designer resets to show hidden content: */
+.wf-design-mode .sticky-features__text-list {
+  overflow: auto;
+  max-height: 41em;
+  gap: 2em;
+  justify-content: flex-start;
+}
+.wf-design-mode .sticky-features__text-item {
+  position: relative;
+}
+.wf-design-mode [data-sticky-feature-item] {
+  visibility: visible;
+}
+/* Show only 1st items on live site */
+[data-sticky-feature-visual-wrap]:first-of-type {
+  clip-path: inset(0% round 0px);
+}
+[data-sticky-feature-item]:first-of-type {
+  visibility: visible;
+}
+
+/* ------------------------- GSAP Slider -------------------------  */
+[data-gsap-slider-init] {
+  --slider-status: on; /* Turn slider on/off */
+  --slider-spv: 3; /* Slides per view */
+  --slider-gap: 1.5em; /* Slides Gap */
+}
+
+@media screen and (max-width: 991px) {
+  [data-gsap-slider-init] {
+    --slider-status: on; /* Turn slider on/off */
+    --slider-spv: 2.25; /* Slides per view */
+    --slider-gap: 1.5em; /* Slides Gap */
+  }
+}
+
+@media screen and (max-width: 767px) {
+  [data-gsap-slider-init] {
+    --slider-status: on; /* Turn slider on/off */
+    --slider-spv: 1.15; /* Slides per view */
+    --slider-gap: 1em; /* Gap */
+  }
+}
+
+[data-gsap-slider-item]:last-child {
+  margin-right: 0;
+}
+
+/* Controls */
+[data-gsap-slider-status='not-active'] [data-gsap-slider-controls] {
+  display: none;
+}
+
+[data-gsap-slider-control-status='not-active'] {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+/* Customization */
+.gsap-slider__control {
+  transition: opacity 0.3s ease;
+}
+
+.demo-card {
+  transition: all 0.3s ease;
+}
+
+[data-gsap-slider-item-status='not-active'] .demo-card {
+  background-color: #131313;
+}
+
+.demo-card__tag {
+  transition: all 0.3s ease;
+}
+
+[data-gsap-slider-item-status='not-active'] .demo-card__tag {
+  opacity: 0;
+}
+
+/* ------------------------- Accordian -------------------------  */
+.wf-design-mode .accordion-css__item-bottom-wrap {
+  overflow: visible;
+}
+
+/* ------------------------- page: Home - section: Testimonials -------------------------  */
+.stack-cards__card {
+  transition: box-shadow 0.25s cubic-bezier(0.625, 0.05, 0, 1);
+  box-shadow: 0em 0.5em 0em 0em rgba(0, 0, 0, 0);
+}
+
+.stack-cards__item.is--active .stack-cards__card,
+.stack-cards__item.is--second .stack-cards__card {
+  box-shadow: 0em 0.5em 0em 0em rgba(0, 0, 0, 0.15);
+}
+
+/* Rotate the first two cards in the Webflow editor */
+:is(.wf-design-mode, .w-editor) [data-stacked-cards-item]:nth-child(1) {
+  transform: rotate(4deg);
+  z-index: 3;
+}
+
+:is(.wf-design-mode, .w-editor) [data-stacked-cards-item]:nth-child(2) {
+  transform: rotate(-4deg);
+  z-index: 2;
+}

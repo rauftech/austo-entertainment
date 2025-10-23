@@ -1,6 +1,7 @@
 // src/js/home.js
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Draggable } from 'gsap/Draggable';
 
 // Featured Work
 function initStoriesGrid() {
@@ -284,6 +285,228 @@ function initImageTrail(config = {}) {
   };
 }
 
+// Testimonials
+function initStackedCardsSlider() {
+  document
+    .querySelectorAll('[data-stacked-cards]')
+    .forEach(function (container) {
+      // animation presets
+      let easeBeforeRelease = { duration: 0.2, ease: 'power2.out' };
+      let easeAfterRelease = { duration: 1, ease: 'expo.out' };
+
+      let activeDeg = 4;
+      let inactiveDeg = -4;
+
+      const list = container.querySelector('[data-stacked-cards-list]');
+      if (!list) return;
+
+      // check minimum cards
+      const initialItems = Array.from(
+        list.querySelectorAll(':scope > [data-stacked-cards-item]'),
+      );
+      if (initialItems.length < 3) {
+        console.error(
+          '[StackedCards] Minimum of 3 cards required. Found:',
+          initialItems.length,
+          list,
+        );
+        return;
+      }
+
+      // Draggable instances & cached elements
+      let dragFirst, dragSecond;
+      let firstItem, secondItem, firstEl, secondEl;
+      let full, t;
+
+      function restack() {
+        const items = Array.from(
+          list.querySelectorAll('[data-stacked-cards-item]'),
+        );
+        items.forEach(function (item) {
+          item.classList.remove('is--active', 'is--second');
+        });
+        items[0].style.zIndex = 3;
+        items[0].style.transform = `rotate(${activeDeg}deg)`;
+        items[0].style.pointerEvents = 'auto';
+        items[0].classList.add('is--active');
+
+        items[1].style.zIndex = 2;
+        items[1].style.transform = `rotate(${inactiveDeg}deg)`;
+        items[1].style.pointerEvents = 'none';
+        items[1].classList.add('is--second');
+
+        items[2].style.zIndex = 1;
+        items[2].style.transform = `rotate(${activeDeg}deg)`;
+
+        items.slice(3).forEach(function (item) {
+          item.style.zIndex = 0;
+          item.style.transform = `rotate(${inactiveDeg}deg)`;
+        });
+      }
+
+      function setupDraggables() {
+        restack();
+
+        // cache top two cards
+        const items = Array.from(
+          list.querySelectorAll(':scope > [data-stacked-cards-item]'),
+        );
+        firstItem = items[0];
+        secondItem = items[1];
+        firstEl = firstItem.querySelector('[data-stacked-cards-card]');
+        secondEl = secondItem.querySelector('[data-stacked-cards-card]');
+
+        // compute thresholds
+        const width = firstEl.getBoundingClientRect().width;
+        full = width * 1.15;
+        t = width * 0.1;
+
+        // kill old Draggables
+        dragFirst?.kill();
+        dragSecond?.kill();
+
+        // --- First card draggable ---
+        dragFirst = Draggable.create(firstEl, {
+          type: 'x',
+          onPress() {
+            firstEl.classList.add('is--dragging');
+          },
+          onRelease() {
+            firstEl.classList.remove('is--dragging');
+          },
+          onDrag() {
+            let raw = this.x;
+            if (Math.abs(raw) > full) {
+              const over = Math.abs(raw) - full;
+              raw = (raw > 0 ? 1 : -1) * (full + over * 0.1);
+            }
+            gsap.set(firstEl, { x: raw, rotation: 0 });
+          },
+          onDragEnd() {
+            const x = this.x;
+            const dir = x > 0 ? 'right' : 'left';
+
+            // hand control to second card
+            this.disable?.();
+            dragSecond?.enable?.();
+            firstItem.style.pointerEvents = 'none';
+            secondItem.style.pointerEvents = 'auto';
+
+            if (Math.abs(x) <= t) {
+              // small drag: just snap back
+              gsap.to(firstEl, {
+                x: 0,
+                rotation: 0,
+                ...easeBeforeRelease,
+                onComplete: resetCycle,
+              });
+            } else if (Math.abs(x) <= full) {
+              flick(dir, false, x);
+            } else {
+              flick(dir, true);
+            }
+          },
+        })[0];
+
+        // --- Second card draggable ---
+        dragSecond = Draggable.create(secondEl, {
+          type: 'x',
+          onPress() {
+            secondEl.classList.add('is--dragging');
+          },
+          onRelease() {
+            secondEl.classList.remove('is--dragging');
+          },
+          onDrag() {
+            let raw = this.x;
+            if (Math.abs(raw) > full) {
+              const over = Math.abs(raw) - full;
+              raw = (raw > 0 ? 1 : -1) * (full + over * 0.2);
+            }
+            gsap.set(secondEl, { x: raw, rotation: 0 });
+          },
+          onDragEnd() {
+            gsap.to(secondEl, {
+              x: 0,
+              rotation: 0,
+              ...easeBeforeRelease,
+            });
+          },
+        })[0];
+
+        // start with first card active
+        dragFirst?.enable?.();
+        dragSecond?.disable?.();
+        firstItem.style.pointerEvents = 'auto';
+        secondItem.style.pointerEvents = 'none';
+      }
+
+      function flick(dir, skipHome = false, releaseX = 0) {
+        if (!(dir === 'left' || dir === 'right')) {
+          dir = activeDeg > 0 ? 'right' : 'left';
+        }
+        dragFirst?.disable?.();
+
+        const item = list.querySelector('[data-stacked-cards-item]');
+        const card = item.querySelector('[data-stacked-cards-card]');
+        const exitX = dir === 'right' ? full : -full;
+
+        if (skipHome) {
+          const visualX = gsap.getProperty(card, 'x');
+          list.appendChild(item);
+          [activeDeg, inactiveDeg] = [inactiveDeg, activeDeg];
+          restack();
+          gsap.fromTo(
+            card,
+            { x: visualX, rotation: 0 },
+            { x: 0, rotation: 0, ...easeAfterRelease, onComplete: resetCycle },
+          );
+        } else {
+          gsap.fromTo(
+            card,
+            { x: releaseX, rotation: 0 },
+            {
+              x: exitX,
+              ...easeBeforeRelease,
+              onComplete() {
+                gsap.set(card, { x: 0, rotation: 0 });
+                list.appendChild(item);
+                [activeDeg, inactiveDeg] = [inactiveDeg, activeDeg];
+                resetCycle();
+                const newCard = item.querySelector('[data-stacked-cards-card]');
+                gsap.fromTo(
+                  newCard,
+                  { x: exitX },
+                  { x: 0, ...easeAfterRelease, onComplete: resetCycle },
+                );
+              },
+            },
+          );
+        }
+      }
+
+      function resetCycle() {
+        list
+          .querySelectorAll('[data-stacked-cards-card].is--dragging')
+          .forEach(function (el) {
+            el.classList.remove('is--dragging');
+          });
+        setupDraggables();
+      }
+
+      setupDraggables();
+
+      // “Next” button support
+      container
+        .querySelectorAll('[data-stacked-cards-control="next"]')
+        .forEach(function (btn) {
+          btn.onclick = function () {
+            flick();
+          };
+        });
+    });
+}
+
 initStoriesGrid();
 initDynamicCustomTextCursor();
 initImageTrail({
@@ -292,3 +515,4 @@ initImageTrail({
   stopDuration: 350,
   trailLength: 8,
 });
+initStackedCardsSlider();

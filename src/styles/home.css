@@ -4,3 +4,14 @@ body:has([data-cursor]:hover) .cursor {
   width: 8em;
   height: 2.4em;
 }
+
+/* Music Player */
+[data-howler-status='not-playing'] .howler-player__btn-play,
+[data-howler-status='playing'] .howler-player__btn-pause {
+  display: flex;
+}
+
+[data-howler-status='playing'] .howler-player__btn-play,
+[data-howler-status='not-playing'] .howler-player__btn-pause {
+  display: none;
+}
