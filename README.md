@@ -2,6 +2,27 @@
 
 A Vite-powered starter for adding custom CSS and JavaScript to Webflow projects. CSS loads in `<head>` for performance, JS conditionally loads per page.
 
+## Links
+
+### Staging
+
+```html
+<link rel="stylesheet" href="http://localhost:5173/src/index.css" />
+
+<script type="module" src="http://localhost:5173/src/main.js"></script>
+```
+
+### Production
+
+```html
+<link rel="stylesheet" href="https://austo-entertainment.pages.dev/index.css" />
+
+<script
+  type="module"
+  src="https://austo-entertainment.pages.dev/main.js"
+></script>
+```
+
 ## Quick Start
 
 ```bash
@@ -66,7 +87,7 @@ function isCurrentPage(pageList) {
   const path = window.location.pathname.split('/').pop();
   if (path === 'about' || path === '') {
     document.write(
-      '<link rel="stylesheet" href="http://localhost:5173/src/styles/about-home.css">'
+      '<link rel="stylesheet" href="http://localhost:5173/src/styles/about-home.css">',
     );
   }
 </script>
@@ -89,7 +110,7 @@ function isCurrentPage(pageList) {
   const base = 'https://USERNAME.github.io/REPO';
   if (path === 'about' || path === '') {
     document.write(
-      '<link rel="stylesheet" href="' + base + '/about-home.css">'
+      '<link rel="stylesheet" href="' + base + '/about-home.css">',
     );
   }
 </script>

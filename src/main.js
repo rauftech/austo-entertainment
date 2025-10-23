@@ -37,32 +37,65 @@ function ready(fn) {
 }
 
 /**
- * Initialize application
+ * Initialize application (Async)
  */
-ready(async () => {
+
+// ready(async () => {
+//   try {
+//     // Load global JavaScript first (always runs on every page)
+//     await import('./js/global.js');
+
+//     // Load page-specific JavaScript conditionally
+//     if (isCurrentPage([''])) {
+//       await import('./js/home.js');
+//     }
+
+//     if (isCurrentPage(['work'])) {
+//       await import('./js/work.js');
+//     }
+
+//     if (isCurrentPage(['about'])) {
+//       await import('./js/about.js');
+//     }
+
+//     if (isCurrentPage(['services'])) {
+//       await import('./js/services.js');
+//     }
+
+//     if (isCurrentPage(['services', 'booking'])) {
+//       await import('./js/utils.js');
+//     }
+
+//     console.log('✓ Custom code loaded successfully');
+//   } catch (error) {
+//     console.error('✗ Error loading custom code:', error);
+//   }
+// });
+
+ready(() => {
   try {
     // Load global JavaScript first (always runs on every page)
-    await import('./js/global.js');
+    import('./js/global.js');
 
     // Load page-specific JavaScript conditionally
     if (isCurrentPage([''])) {
-      await import('./js/home.js');
+      import('./js/home.js');
     }
 
     if (isCurrentPage(['work'])) {
-      await import('./js/work.js');
+      import('./js/work.js');
     }
 
     if (isCurrentPage(['about'])) {
-      await import('./js/about.js');
+      import('./js/about.js');
     }
 
     if (isCurrentPage(['services'])) {
-      await import('./js/services.js');
+      import('./js/services.js');
     }
 
     if (isCurrentPage(['services', 'booking'])) {
-      await import('./js/utils.js');
+      import('./js/utils.js');
     }
 
     console.log('✓ Custom code loaded successfully');
