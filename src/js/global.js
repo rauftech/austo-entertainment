@@ -2,6 +2,8 @@
  * Global JavaScript - Runs on all pages
  * Add site-wide functionality here
  */
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 console.log('→ Global JS initialized');
 
@@ -29,6 +31,14 @@ document.querySelectorAll('.nav-link').forEach(link => {
 */
 
 // Export functions if other modules need them
-export function initGlobal() {
-  console.log('Global functions ready');
-}
+// export function initGlobal() {
+//   console.log('Global functions ready');
+// }
+
+// Lenis (with GSAP Scroltrigger)
+const lenis = new Lenis();
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time) => {
+  lenis.raf(time * 1000);
+});
+gsap.ticker.lagSmoothing(0);

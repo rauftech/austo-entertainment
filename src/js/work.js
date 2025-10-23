@@ -45,13 +45,14 @@ function initStackingCardsParallax() {
         yPercent: 50,
         filter: 'brightness(30%)',
       },
-    ).from(
-      card,
-      {
-        clipPath: 'inset(30px 60px 0)',
-      },
-      '<',
     );
+    // .from(
+    //   card,
+    //   {
+    //     clipPath: 'inset(30px 60px 0)',
+    //   },
+    //   '<',
+    // );
     // .fromTo(
     //   previousCardImage,
     //   { rotate: 0, yPercent: 0 },

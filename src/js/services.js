@@ -125,7 +125,7 @@ function initStickyFeatures(root) {
     const rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const DURATION = rm ? 0.01 : 0.75; // If user prefers reduced motion, reduce duration
     const EASE = 'power4.inOut';
-    const SCROLL_AMOUNT = 0.9; // % of scroll used for step transitions
+    const SCROLL_AMOUNT = 0.7; // % of scroll used for step transitions
 
     const getTexts = (el) =>
       Array.from(el.querySelectorAll('[data-sticky-feature-text]'));
