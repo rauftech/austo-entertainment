@@ -1,5 +1,6 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { initSliderComponent } from './components/slider';
 
 // Events
 function initPreviewFollower() {
@@ -264,3 +265,4 @@ function initAccordionCSS() {
 initPreviewFollower();
 initStickyFeatures();
 initAccordionCSS();
+initSliderComponent();

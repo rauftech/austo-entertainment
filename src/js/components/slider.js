@@ -236,10 +236,11 @@ function debounceOnWidthChange(fn, ms) {
   };
 }
 
-window.addEventListener(
-  'resize',
-  debounceOnWidthChange(initBasicGSAPSlider, 200),
-);
-
-// Initialize Basic GSAP Slider
-initBasicGSAPSlider();
+export const initSliderComponent = () => {
+  window.addEventListener(
+    'resize',
+    debounceOnWidthChange(initBasicGSAPSlider, 200),
+  );
+  // Initialize Basic GSAP Slider
+  initBasicGSAPSlider();
+};

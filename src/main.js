@@ -40,38 +40,6 @@ function ready(fn) {
  * Initialize application (Async)
  */
 
-// ready(async () => {
-//   try {
-//     // Load global JavaScript first (always runs on every page)
-//     await import('./js/global.js');
-
-//     // Load page-specific JavaScript conditionally
-//     if (isCurrentPage([''])) {
-//       await import('./js/home.js');
-//     }
-
-//     if (isCurrentPage(['work'])) {
-//       await import('./js/work.js');
-//     }
-
-//     if (isCurrentPage(['about'])) {
-//       await import('./js/about.js');
-//     }
-
-//     if (isCurrentPage(['services'])) {
-//       await import('./js/services.js');
-//     }
-
-//     if (isCurrentPage(['services', 'booking'])) {
-//       await import('./js/utils.js');
-//     }
-
-//     console.log('✓ Custom code loaded successfully');
-//   } catch (error) {
-//     console.error('✗ Error loading custom code:', error);
-//   }
-// });
-
 ready(() => {
   try {
     // Load global JavaScript first (always runs on every page)
@@ -92,10 +60,6 @@ ready(() => {
 
     if (isCurrentPage(['services'])) {
       import('./js/services.js');
-    }
-
-    if (isCurrentPage(['services', 'booking'])) {
-      import('./js/utils.js');
     }
 
     console.log('✓ Custom code loaded successfully');
