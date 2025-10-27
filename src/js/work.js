@@ -193,6 +193,8 @@ function initHowlerJSAudioPlayer() {
   return soundInstances;
 }
 
-initStackingCardsParallax();
-initHowlerJSAudioPlayer();
-initBunnyPlayer();
+export function initWork() {
+  initStackingCardsParallax();
+  initHowlerJSAudioPlayer();
+  initBunnyPlayer();
+}

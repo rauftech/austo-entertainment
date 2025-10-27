@@ -44,4 +44,6 @@ function initCSSMarquee() {
 }
 
 // Initialize CSS Marquee
-initCSSMarquee();
+export function initAbout() {
+  initCSSMarquee();
+}

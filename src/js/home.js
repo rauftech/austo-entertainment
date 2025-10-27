@@ -507,12 +507,14 @@ function initStackedCardsSlider() {
     });
 }
 
-initStoriesGrid();
-initDynamicCustomTextCursor();
-initImageTrail({
-  minWidth: 992,
-  moveDistance: 15,
-  stopDuration: 350,
-  trailLength: 8,
-});
-initStackedCardsSlider();
+export function initHome() {
+  initStoriesGrid();
+  initDynamicCustomTextCursor();
+  initImageTrail({
+    minWidth: 992,
+    moveDistance: 15,
+    stopDuration: 350,
+    trailLength: 8,
+  });
+  initStackedCardsSlider();
+}

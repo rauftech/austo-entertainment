@@ -262,7 +262,9 @@ function initAccordionCSS() {
     });
 }
 
-initPreviewFollower();
-initStickyFeatures();
-initAccordionCSS();
-initSliderComponent();
+export function initServices() {
+  initPreviewFollower();
+  initStickyFeatures();
+  initAccordionCSS();
+  initSliderComponent();
+}
