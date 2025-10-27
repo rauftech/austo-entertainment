@@ -35,7 +35,6 @@ function initBarba() {
 
   barba.hooks.after(async () => {
     await restartWebflow();
-    ScrollTrigger.refresh();
   });
 }
 
@@ -49,7 +48,7 @@ function initSmoothScroll() {
   gsap.ticker.lagSmoothing(0);
 }
 
-// initBarba();
 initSmoothScroll();
 initDirectionalButtonHover();
 initScalingHamburgerNavigation();
+// initBarba();
