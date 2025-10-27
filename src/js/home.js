@@ -22,7 +22,7 @@ function initStoriesGrid() {
 }
 
 function initDynamicCustomTextCursor() {
-  let cursorItem = document.querySelector('.cursor');
+  let cursorItem = document.querySelector('.fw-cursor');
   let cursorParagraph = cursorItem.querySelector('p');
   let targets = document.querySelectorAll('[data-cursor]');
   let xOffset = 0;

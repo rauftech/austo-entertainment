@@ -12,6 +12,16 @@
   animation-play-state: paused;
 }
 
+[data-howler-status='not-playing'] .howler-player__btn-play,
+[data-howler-status='playing'] .howler-player__btn-pause {
+  display: flex;
+}
+
+[data-howler-status='playing'] .howler-player__btn-play,
+[data-howler-status='not-playing'] .howler-player__btn-pause {
+  display: none;
+}
+
 /* Video player  */
 /* Animation */
 [data-bunny-player-init]

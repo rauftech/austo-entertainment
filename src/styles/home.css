@@ -1,17 +1,6 @@
 /* Featured Work */
-body:has([data-cursor]:hover) .cursor {
+body:has([data-cursor]:hover) .fw-cursor {
   opacity: 1;
-  width: 8em;
+  width: 9em;
   height: 2.4em;
-}
-
-/* Music Player */
-[data-howler-status='not-playing'] .howler-player__btn-play,
-[data-howler-status='playing'] .howler-player__btn-pause {
-  display: flex;
-}
-
-[data-howler-status='playing'] .howler-player__btn-play,
-[data-howler-status='not-playing'] .howler-player__btn-pause {
-  display: none;
 }
