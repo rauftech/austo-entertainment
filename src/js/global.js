@@ -48,7 +48,7 @@ function initSmoothScroll() {
   gsap.ticker.lagSmoothing(0);
 }
 
-initSmoothScroll();
-initDirectionalButtonHover();
-initScalingHamburgerNavigation();
-// initBarba();
+// initSmoothScroll();
+// initDirectionalButtonHover();
+// initScalingHamburgerNavigation();
+initBarba();
