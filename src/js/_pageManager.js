@@ -52,6 +52,7 @@ export function cleanupPageScripts() {
 
   // Kill all GSAP tweens/timelines
   gsap.globalTimeline.clear();
+  ScrollTrigger.refresh();
 
   console.log(`→ Cleaned up ${triggers.length} ScrollTriggers`);
 }

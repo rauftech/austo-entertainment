@@ -9,6 +9,7 @@ import { restartWebflow } from './utils/restartWebflow.js';
 import { initPageScripts, cleanupPageScripts } from './_pageManager.js';
 import { initDirectionalButtonHover } from './components/button.js';
 import { initScalingHamburgerNavigation } from './components/mobileMenu.js';
+import { cleanGSAP } from './utils/cleanGSAP.js';
 
 console.log('→ Global JS initialized');
 
@@ -100,20 +101,21 @@ function initBarba() {
 
   barba.hooks.after(async () => {
     console.log('→ Barba: after hook');
-
     // Restart Webflow interactions (synchronous)
     await restartWebflow();
+    cleanGSAP();
+    // initPageScripts();
   });
 }
 
 // ======================
 // Initialize Everything
 // ======================
-initSmoothScroll();
-initScalingHamburgerNavigation();
-initDirectionalButtonHover();
-initBarba();
+// initSmoothScroll();
+// initScalingHamburgerNavigation();
+// initDirectionalButtonHover();
+// initBarba();
 
 // Initialize page scripts on first load
 console.log('→ Initial page load');
-// initPageScripts();
+initPageScripts();
