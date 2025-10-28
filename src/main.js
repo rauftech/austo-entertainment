@@ -2,11 +2,11 @@
  * Webflow Custom Code - Main Entry Point
  * This file loads global and page-specific JavaScript
  */
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Draggable } from 'gsap/Draggable';
-import { InertiaPlugin } from 'gsap/InertiaPlugin';
-gsap.registerPlugin(ScrollTrigger, Draggable, InertiaPlugin);
+// import { gsap } from 'gsap';
+// import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// import { Draggable } from 'gsap/Draggable';
+// import { InertiaPlugin } from 'gsap/InertiaPlugin';
+// gsap.registerPlugin(ScrollTrigger, Draggable, InertiaPlugin);
 
 // // Parse URL paths for conditional loading
 // let paths = window.location.pathname.split('/');
