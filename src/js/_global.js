@@ -37,7 +37,7 @@ function initSmoothScroll() {
 // ======================
 function initBarba() {
   barba.init({
-    prevent: ({ el }) => el.classList && el.classList.contains('no-barba'),
+    // prevent: ({ el }) => el.classList && el.classList.contains('no-barba'),
     transitions: [
       {
         name: 'opacity-transition',
@@ -46,7 +46,7 @@ function initBarba() {
           console.log('→ Barba: Leaving page');
 
           // Cleanup before leaving
-          cleanupPageScripts();
+          // cleanupPageScripts();
 
           // Fade out animation
           await gsap.to(data.current.container, {
@@ -73,29 +73,36 @@ function initBarba() {
   });
 
   // IMPORTANT: Use beforeEnter instead of after
-  barba.hooks.beforeEnter(() => {
-    console.log('→ Barba: beforeEnter hook');
+  // barba.hooks.beforeEnter(() => {
+  //   console.log('→ Barba: beforeEnter hook');
+
+  //   // Restart Webflow interactions (synchronous)
+  //   restartWebflow();
+  // });
+
+  // // After transition completes
+  // barba.hooks.afterEnter(() => {
+  //   console.log('→ Barba: afterEnter hook');
+
+  //   // Reinitialize global features for new DOM
+  //   initScalingHamburgerNavigation();
+  //   initDirectionalButtonHover();
+
+  //   // Initialize page-specific scripts
+  //   initPageScripts();
+
+  //   // Small delay before refreshing ScrollTrigger to ensure DOM is ready
+  //   requestAnimationFrame(() => {
+  //     ScrollTrigger.refresh();
+  //     console.log('→ ScrollTrigger refreshed');
+  //   });
+  // });
+
+  barba.hooks.after(async () => {
+    console.log('→ Barba: after hook');
 
     // Restart Webflow interactions (synchronous)
-    restartWebflow();
-  });
-
-  // After transition completes
-  barba.hooks.afterEnter(() => {
-    console.log('→ Barba: afterEnter hook');
-
-    // Reinitialize global features for new DOM
-    initScalingHamburgerNavigation();
-    initDirectionalButtonHover();
-
-    // Initialize page-specific scripts
-    initPageScripts();
-
-    // Small delay before refreshing ScrollTrigger to ensure DOM is ready
-    requestAnimationFrame(() => {
-      ScrollTrigger.refresh();
-      console.log('→ ScrollTrigger refreshed');
-    });
+    await restartWebflow();
   });
 }
 
@@ -105,8 +112,8 @@ function initBarba() {
 initSmoothScroll();
 initScalingHamburgerNavigation();
 initDirectionalButtonHover();
-// initBarba();
+initBarba();
 
 // Initialize page scripts on first load
 console.log('→ Initial page load');
-initPageScripts();
+// initPageScripts();
