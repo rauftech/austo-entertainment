@@ -6,7 +6,16 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Draggable } from 'gsap/Draggable';
 import { InertiaPlugin } from 'gsap/InertiaPlugin';
-gsap.registerPlugin(ScrollTrigger, Draggable, InertiaPlugin);
+import { CustomEase } from 'gsap/CustomEase';
+import { SplitText } from 'gsap/SplitText';
+
+gsap.registerPlugin(
+  ScrollTrigger,
+  Draggable,
+  InertiaPlugin,
+  CustomEase,
+  SplitText,
+);
 
 // Parse URL paths for conditional loading
 let paths = window.location.pathname.split('/');
