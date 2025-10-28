@@ -41,18 +41,3 @@ export function initPageScripts() {
     console.log(`No specific scripts for page: ${page}`);
   }
 }
-
-/**
- * Cleanup page-specific resources
- */
-export function cleanupPageScripts() {
-  // Kill all ScrollTrigger instances
-  const triggers = ScrollTrigger.getAll();
-  triggers.forEach((trigger) => trigger.kill());
-
-  // Kill all GSAP tweens/timelines
-  gsap.globalTimeline.clear();
-  ScrollTrigger.refresh();
-
-  console.log(`→ Cleaned up ${triggers.length} ScrollTriggers`);
-}
