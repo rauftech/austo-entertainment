@@ -12,6 +12,15 @@ export function initLogoRevealLoader(lenis) {
   const progressBar = wrap.querySelector('[data-load-progress]');
   const logo = wrap.querySelector('[data-load-logo]');
 
+  const wave = wrap.querySelector('[data-load-wave] path');
+
+  const waveShape = {
+    full: 'M469.539032,263.986786H-0.000001L0,0c226.11113,0,182.887283-0.414484,469.539032,0V263.986786z',
+    wave: 'M469.539032,263.986786H-0.000001L0,229.890961c310.649475,58.156982,255.61113-98.5,469.539032-65.062302V263.986786z',
+    empty:
+      'M469.539032,263.986786H-0.000001L0,263.557617c66.11113,0.429169,351.088104,0.429169,469.539032,0.208344V263.986786z',
+  };
+
   // Main loader timeline
   const loadTimeline = gsap
     .timeline({
@@ -25,13 +34,26 @@ export function initLogoRevealLoader(lenis) {
     .to(progressBar, { scaleX: 1 })
     .to(logo, { clipPath: 'inset(0% 0% 0% 0%)' }, '<')
     .to(container, { autoAlpha: 0, duration: 0.5 })
-    .to(
-      progressBar,
-      { scaleX: 0, transformOrigin: 'right center', duration: 0.5 },
-      '<',
-    )
+    .to(progressBar, { opacity: 0, duration: 0.2 }, '<')
     .add('hideContent', '<')
-    .to(bg, { yPercent: -101, duration: 1 }, 'hideContent')
+    .to(
+      wave,
+      {
+        duration: 0.5,
+        attr: { d: waveShape.wave },
+        ease: 'sine.in',
+      },
+      'hideContent',
+    )
+    .to(
+      wave,
+      {
+        duration: 0.25,
+        attr: { d: waveShape.empty },
+        ease: 'sine.out',
+      },
+      'hideContent>',
+    )
     .set(wrap, { display: 'none' })
     .add(() => lenis.start());
 
@@ -57,19 +79,22 @@ export function initLogoRevealLoader(lenis) {
       const destination = link.href;
 
       loadTimeline
-        .add(() => lenis.stop())
         .set(wrap, { display: 'block' })
         .set(logo, { clipPath: 'inset(100% 0% 0% 0%)' })
-        .fromTo(
-          bg,
-          {
-            yPercent: 101,
-          },
-          {
-            yPercent: 0,
-            duration: 0.6,
-          },
-        )
+        .set(wave.parentElement, { rotateZ: 180, rotateY: -180 })
+        .set(wave, {
+          attr: { d: waveShape.empty },
+        })
+        .to(wave, {
+          duration: 0.15,
+          attr: { d: waveShape.wave },
+          ease: 'sine.in',
+        })
+        .to(wave, {
+          duration: 0.3,
+          attr: { d: waveShape.full },
+          ease: 'sine.out',
+        })
         .to(
           container,
           {
@@ -79,9 +104,8 @@ export function initLogoRevealLoader(lenis) {
               window.location.href = destination;
             },
           },
-          '<0.5',
-        )
-        .add(() => lenis.start());
+          '<',
+        );
     });
   });
 
