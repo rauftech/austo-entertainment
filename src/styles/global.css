@@ -13,6 +13,21 @@
   transform-origin: center center; /* optional but good practice */
 }
 
+/* Text reveal animation */
+.page-heading,
+.page-heading * {
+  will-change: transform;
+}
+
+.line-mask {
+  overflow: visible;
+}
+
+[data-animate='hero-heading'],
+[data-animate='hero-heading'] * {
+  will-change: transform;
+}
+
 /* Mobile Menu */
 /* Nav Dark BG */
 .navigation__dark-bg {

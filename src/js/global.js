@@ -1,17 +1,11 @@
-/**
- * Global JavaScript - Runs on all pages
- * Add site-wide functionality here
- */
 import Lenis from 'lenis';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initDirectionalButtonHover } from './components/button.js';
 import { initScalingHamburgerNavigation } from './components/mobileMenu.js';
 import { initLogoRevealLoader } from './components/loader.js';
+// import { animateAppear } from './components/animateAppear.js';
 
 console.log('→ Global JS initialized');
 
-// Lenis (with GSAP Scroltrigger)
 let lenis;
 
 function initSmoothScroll() {
@@ -26,4 +20,6 @@ function initSmoothScroll() {
 initSmoothScroll();
 initDirectionalButtonHover();
 initScalingHamburgerNavigation();
-initLogoRevealLoader(lenis);
+
+initLogoRevealLoader(lenis, false);
+// animateAppear();

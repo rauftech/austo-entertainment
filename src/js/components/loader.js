@@ -1,14 +1,11 @@
-import { gsap } from 'gsap';
-import { CustomEase } from 'gsap/CustomEase';
-
-export function initLogoRevealLoader(lenis) {
+export function initLogoRevealLoader(lenis, off) {
   CustomEase.create('loader', '0.65, 0.01, 0.05, 0.99');
 
   const wrap = document.querySelector('[data-load-wrap]');
   if (!wrap) return;
 
   const container = wrap.querySelector('[data-load-container]');
-  const bg = wrap.querySelector('[data-load-bg]');
+  // const bg = wrap.querySelector('[data-load-bg]');
   const progressBar = wrap.querySelector('[data-load-progress]');
   const logo = wrap.querySelector('[data-load-logo]');
 
@@ -20,6 +17,11 @@ export function initLogoRevealLoader(lenis) {
     empty:
       'M469.539032,263.986786H-0.000001L0,263.557617c66.11113,0.429169,351.088104,0.429169,469.539032,0.208344V263.986786z',
   };
+
+  if (off) {
+    gsap.set(wrap, { display: 'none' });
+    return;
+  }
 
   // Main loader timeline
   const loadTimeline = gsap
@@ -34,7 +36,7 @@ export function initLogoRevealLoader(lenis) {
     .to(progressBar, { scaleX: 1 })
     .to(logo, { clipPath: 'inset(0% 0% 0% 0%)' }, '<')
     .to(container, { autoAlpha: 0, duration: 0.5 })
-    .to(progressBar, { opacity: 0, duration: 0.2 }, '<')
+    .to(progressBar, { opacity: 0, duration: 0.5 }, '<')
     .add('hideContent', '<')
     .to(
       wave,
@@ -99,7 +101,7 @@ export function initLogoRevealLoader(lenis) {
           container,
           {
             autoAlpha: 1,
-            duration: 0.5,
+            duration: 0.3,
             onComplete: () => {
               window.location.href = destination;
             },

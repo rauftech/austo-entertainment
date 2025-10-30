@@ -1,14 +1,9 @@
+import { animateScroll } from './js/components/animateScroll.js';
+
 /**
  * Webflow Custom Code - Main Entry Point
  * This file loads global and page-specific JavaScript
  */
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Draggable } from 'gsap/Draggable';
-import { InertiaPlugin } from 'gsap/InertiaPlugin';
-import { CustomEase } from 'gsap/CustomEase';
-import { SplitText } from 'gsap/SplitText';
-
 gsap.registerPlugin(
   ScrollTrigger,
   Draggable,
@@ -16,8 +11,9 @@ gsap.registerPlugin(
   CustomEase,
   SplitText,
 );
-
+// console.log(window.gsap);
 // Parse URL paths for conditional loading
+
 let paths = window.location.pathname.split('/');
 
 /**
@@ -49,27 +45,33 @@ function ready(fn) {
  * Initialize application (Async)
  */
 
-ready(() => {
+ready(async () => {
   try {
     // Load global JavaScript first (always runs on every page)
     import('./js/global.js');
 
     // Load page-specific JavaScript conditionally
     if (isCurrentPage([''])) {
-      import('./js/home.js');
+      await import('./js/home.js');
     }
 
     if (isCurrentPage(['work'])) {
-      import('./js/work.js');
+      await import('./js/work.js');
     }
 
     if (isCurrentPage(['about'])) {
-      import('./js/about.js');
+      await import('./js/about.js');
     }
 
     if (isCurrentPage(['services'])) {
-      import('./js/services.js');
+      await import('./js/services.js');
     }
+
+    if (isCurrentPage(['booking'])) {
+      await import('./js/booking.js');
+    }
+
+    animateScroll();
 
     console.log('✓ Custom code loaded successfully');
   } catch (error) {

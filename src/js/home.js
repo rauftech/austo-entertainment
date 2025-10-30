@@ -1,7 +1,62 @@
-// src/js/home.js
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Draggable } from 'gsap/Draggable';
+import { animateHeroHome } from './components/animateHero';
+
+// Hero
+function initCurtainLoop() {
+  const wrap = document.querySelector('[data-curtain-wrap]');
+  if (!wrap) return;
+
+  const DURATION = 0.7;
+  const EASE = 'power2.inOut';
+  const DELAY_BETWEEN = 1.0;
+
+  const items = Array.from(document.querySelectorAll('[data-curtain-item]'));
+  const len = items.length;
+  if (len <= 1) return;
+
+  gsap.set(items, {
+    position: 'absolute',
+    inset: 0,
+    autoAlpha: 0,
+    clipPath: 'inset(100% 0% 0% 0%)',
+  });
+  gsap.set(items[0], {
+    autoAlpha: 1,
+    clipPath: 'inset(0% 0% 0% 0%)',
+    zIndex: 1,
+  });
+
+  const tl = gsap.timeline({
+    defaults: { duration: DURATION, ease: EASE },
+    repeat: -1,
+    paused: true,
+    delay: 2.5,
+  });
+
+  for (let i = 0; i < len; i++) {
+    const from = items[i];
+    const to = items[(i + 1) % len];
+
+    tl.to({}, { duration: DELAY_BETWEEN })
+      .set(to, {
+        autoAlpha: 1,
+        clipPath: 'inset(100% 0% 0% 0%)',
+        zIndex: i + 2,
+      })
+      .to(to, { clipPath: 'inset(0% 0% 0% 0%)' })
+      .set(from, { autoAlpha: 0, clipPath: 'inset(100% 0% 0% 0%)' });
+  }
+
+  // --- ScrollTrigger ---
+  ScrollTrigger.create({
+    trigger: wrap,
+    start: 'top 90%',
+    end: 'bottom top',
+    onEnter: () => tl.play(),
+    onLeave: () => tl.pause(),
+    onEnterBack: () => tl.play(),
+    onLeaveBack: () => tl.pause(),
+  });
+}
 
 // Featured Work
 function initStoriesGrid() {
@@ -516,3 +571,7 @@ initImageTrail({
   trailLength: 8,
 });
 initStackedCardsSlider();
+initCurtainLoop();
+
+// LOAD ANIMATIONS
+animateHeroHome();

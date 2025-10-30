@@ -1,6 +1,3 @@
-import { gsap } from 'gsap';
-import { Draggable } from 'gsap/Draggable';
-
 function initBasicGSAPSlider() {
   document.querySelectorAll('[data-gsap-slider-init]').forEach((root) => {
     if (root._sliderDraggable) root._sliderDraggable.kill();

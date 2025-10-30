@@ -1,5 +1,3 @@
-import { gsap } from 'gsap';
-
 export function initPageTransition() {
   // adjustGrid().then(() => {
   let pageLoadTimeline = gsap.timeline({

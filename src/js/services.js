@@ -1,5 +1,4 @@
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { animateHeroServices } from './components/animateHero';
 import { initSliderComponent } from './components/slider';
 
 // Events
@@ -266,3 +265,4 @@ initPreviewFollower();
 initStickyFeatures();
 initAccordionCSS();
 initSliderComponent();
+animateHeroServices();

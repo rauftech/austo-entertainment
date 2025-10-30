@@ -2,6 +2,8 @@
  * About page specific JavaScript
  */
 
+import { animateHeroAbout } from './components/animateHero';
+
 // Note: The Javascript is optional. Read the documentation below how to use the CSS Only version.
 
 function initCSSMarquee() {
@@ -45,3 +47,5 @@ function initCSSMarquee() {
 
 // Initialize CSS Marquee
 initCSSMarquee();
+
+animateHeroAbout();

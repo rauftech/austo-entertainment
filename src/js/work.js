@@ -1,7 +1,6 @@
 /**
  * Work page specific JavaScript
  */
-import { gsap } from 'gsap';
 import { Howl } from 'howler';
 import { initBunnyPlayer } from './components/bunnyPlayer';
 
