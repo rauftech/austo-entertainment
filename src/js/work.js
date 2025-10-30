@@ -3,6 +3,7 @@
  */
 import { Howl } from 'howler';
 import { initBunnyPlayer } from './components/bunnyPlayer';
+import { animateHeroWork } from './components/animateHero';
 
 function initStackingCardsParallax() {
   const cards = document.querySelectorAll('[data-stacking-cards-item]');
@@ -195,3 +196,5 @@ function initHowlerJSAudioPlayer() {
 initStackingCardsParallax();
 initHowlerJSAudioPlayer();
 initBunnyPlayer();
+
+animateHeroWork();

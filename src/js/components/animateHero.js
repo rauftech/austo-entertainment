@@ -150,3 +150,50 @@ export function animateHeroBooking() {
     );
   });
 }
+
+export function animateHeroWork() {
+  const heading = document.querySelector('.work-item .page-heading');
+  const count = document.querySelector('.work-item__count');
+  const workDetails = document.querySelector('.work-item-details');
+
+  if (!(heading && count && workDetails)) return;
+
+  gsap.set([heading, count, workDetails], {
+    opacity: 1,
+    willChange: 'transform, opacity',
+  });
+
+  const tl = gsap.timeline({
+    defaults: { ease: 'expo.out', overwrite: 'auto' },
+    delay: DELAY,
+  });
+
+  document.fonts.ready.then(() => {
+    [count, heading].forEach((target, i) => {
+      SplitText.create(target, {
+        type: 'lines',
+        linesClass: 'line',
+        onSplit: (self) => {
+          const t = gsap.from(self.lines, {
+            duration: 0.8,
+            yPercent: 50,
+            rotation: 3,
+            opacity: 0,
+            stagger: 0.12,
+          });
+          tl.add(t, 0); // stagger each text group on the main timeline
+        },
+      });
+    });
+
+    tl.from(
+      workDetails,
+      {
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+      },
+      '<0.4',
+    );
+  });
+}
